@@ -190,7 +190,7 @@ if (require.main === module) {
     }
 
     logger.info(`🔗 API endpoints: http://localhost:${config.port}/api/pupils`);
-    logger.info(`� APqI Documentation: http://localhost:${config.port}/api-docs`);
+    logger.info(`� API Documentation: http://localhost:${config.port}/api-docs/#/Pupils`);
     logger.info(`📝 Request logging: ${config.enableRequestLogging ? 'enabled' : 'disabled'}`);
     logger.info('✅ Application startup complete');
   });
