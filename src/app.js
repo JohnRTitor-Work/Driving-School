@@ -1,11 +1,17 @@
 const express = require('express');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const path = require('path');
 require('dotenv').config();
 
 // Import routes and middleware
 const pupilRoutes = require('./routes/pupils');
 const { globalErrorHandler, notFoundHandler } = require('./middleware/errorHandler');
 const databaseConnection = require('./config/database');
+
+// Load Swagger documentation
+const swaggerDocument = YAML.load(path.join(__dirname, '../swagger.yaml'));
 
 // Application configuration
 const config = {
@@ -109,7 +115,7 @@ if (config.healthCheckEnabled) {
 
     // Set appropriate status code based on database connection
     const statusCode = healthCheck.database.status === 'connected' ? 200 : 503;
-    
+
     res.status(statusCode).json(healthCheck);
   });
 
@@ -118,6 +124,17 @@ if (config.healthCheckEnabled) {
     res.status(200).json({ message: 'pong', timestamp: new Date().toISOString() });
   });
 }
+
+// Swagger Documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: 'Driving School API Documentation',
+  swaggerOptions: {
+    docExpansion: 'none',
+    filter: true,
+    showRequestHeaders: true
+  }
+}));
 
 // API Routes
 // Mount pupil routes under /api/pupils prefix
@@ -132,7 +149,7 @@ app.use(globalErrorHandler);
 // Graceful shutdown handling
 const gracefulShutdown = (signal) => {
   logger.info(`Received ${signal}. Starting graceful shutdown...`);
-  
+
   // Close database connection
   databaseConnection.disconnect()
     .then(() => {
@@ -166,13 +183,14 @@ if (require.main === module) {
     logger.info(`🚀 ${config.appName} started successfully`);
     logger.info(`📡 Server listening on port ${config.port}`);
     logger.info(`🌍 Environment: ${config.nodeEnv}`);
-    
+
     if (config.healthCheckEnabled) {
       logger.info(`💚 Health check: http://localhost:${config.port}/health`);
       logger.info(`🏓 Ping endpoint: http://localhost:${config.port}/ping`);
     }
-    
+
     logger.info(`🔗 API endpoints: http://localhost:${config.port}/api/pupils`);
+    logger.info(`� APqI Documentation: http://localhost:${config.port}/api-docs`);
     logger.info(`📝 Request logging: ${config.enableRequestLogging ? 'enabled' : 'disabled'}`);
     logger.info('✅ Application startup complete');
   });
