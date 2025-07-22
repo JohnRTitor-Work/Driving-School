@@ -1,0 +1,10 @@
+{
+  "name": "driving-school-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Monorepo for Driving School project (backend & frontend)",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ]
+}
