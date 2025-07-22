@@ -6,7 +6,7 @@ import Header from "../components/Header";
 import TanStackQueryLayout from "../integrations/tanstack-query/layout.tsx";
 
 import type { QueryClient } from "@tanstack/react-query";
-import { Toaster } from "@/components/ui/sonner.tsx";
+import { Toaster } from "sonner";
 
 interface MyRouterContext {
   queryClient: QueryClient;
