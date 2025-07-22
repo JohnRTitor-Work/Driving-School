@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import TanStackQueryLayout from "../integrations/tanstack-query/layout.tsx";
 
 import type { QueryClient } from "@tanstack/react-query";
+import { Toaster } from "@/components/ui/sonner.tsx";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -15,7 +16,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   component: () => (
     <>
       <Header />
-
+      <Toaster richColors position="top-center" />
       <Outlet />
       <TanStackRouterDevtools />
 
