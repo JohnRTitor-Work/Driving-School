@@ -1,21 +1,38 @@
 import { Link } from "@tanstack/react-router";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 
 export default function Header() {
+  const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "/demo/tanstack-query", label: "TanStack Query" },
+    { href: "/demo/table", label: "TanStack Table" },
+  ];
+
   return (
-    <header className="p-2 flex gap-2 bg-white text-black justify-between">
-      <nav className="flex flex-row">
-        <div className="px-2 font-bold">
-          <Link to="/">Home</Link>
-        </div>
-
-        <div className="px-2 font-bold">
-          <Link to="/demo/tanstack-query">TanStack Query</Link>
-        </div>
-
-        <div className="px-2 font-bold">
-          <Link to="/demo/table">TanStack Table</Link>
-        </div>
-      </nav>
+    <header className="sticky top-0 z-50 bg-background border-b">
+      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        <NavigationMenu>
+          <NavigationMenuList>
+            {navLinks.map((link) => (
+              <NavigationMenuItem key={link.href}>
+                <NavigationMenuLink
+                  className={navigationMenuTriggerStyle()}
+                  asChild
+                >
+                  <Link to={link.href}>{link.label}</Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
+      </div>
     </header>
   );
 }
