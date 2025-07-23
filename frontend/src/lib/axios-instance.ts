@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 
 // note that this comes from `VITE_BACKEND_URL` in the .env file
 // vite only exposes env vars prefixed with `VITE_` to the client
-const BACKEND_URL: string = import.meta.env.BACKEND_URL;
+const BACKEND_URL: string = import.meta.env.VITE_BACKEND_URL;
 
 // create an API connection using axios
 const api = axios.create({
