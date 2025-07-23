@@ -6,4 +6,5 @@ export const useGetPupils = () =>
   useQuery<AddPupilPayload[]>({
     queryKey: ["get-pupils"],
     queryFn: () => getPupils(),
+    select: (res: any) => res.data,
   });
