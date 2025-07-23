@@ -9,10 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ViewPupilRouteImport } from './routes/view-pupil'
+import { Route as AddPupilRouteImport } from './routes/add-pupil'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query'
 import { Route as DemoTableRouteImport } from './routes/demo.table'
 
+const ViewPupilRoute = ViewPupilRouteImport.update({
+  id: '/view-pupil',
+  path: '/view-pupil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AddPupilRoute = AddPupilRouteImport.update({
+  id: '/add-pupil',
+  path: '/add-pupil',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,36 +43,74 @@ const DemoTableRoute = DemoTableRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/add-pupil': typeof AddPupilRoute
+  '/view-pupil': typeof ViewPupilRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/add-pupil': typeof AddPupilRoute
+  '/view-pupil': typeof ViewPupilRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/add-pupil': typeof AddPupilRoute
+  '/view-pupil': typeof ViewPupilRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/demo/table' | '/demo/tanstack-query'
+  fullPaths:
+    | '/'
+    | '/add-pupil'
+    | '/view-pupil'
+    | '/demo/table'
+    | '/demo/tanstack-query'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/demo/table' | '/demo/tanstack-query'
-  id: '__root__' | '/' | '/demo/table' | '/demo/tanstack-query'
+  to:
+    | '/'
+    | '/add-pupil'
+    | '/view-pupil'
+    | '/demo/table'
+    | '/demo/tanstack-query'
+  id:
+    | '__root__'
+    | '/'
+    | '/add-pupil'
+    | '/view-pupil'
+    | '/demo/table'
+    | '/demo/tanstack-query'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AddPupilRoute: typeof AddPupilRoute
+  ViewPupilRoute: typeof ViewPupilRoute
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/view-pupil': {
+      id: '/view-pupil'
+      path: '/view-pupil'
+      fullPath: '/view-pupil'
+      preLoaderRoute: typeof ViewPupilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/add-pupil': {
+      id: '/add-pupil'
+      path: '/add-pupil'
+      fullPath: '/add-pupil'
+      preLoaderRoute: typeof AddPupilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,6 +137,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AddPupilRoute: AddPupilRoute,
+  ViewPupilRoute: ViewPupilRoute,
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
 }

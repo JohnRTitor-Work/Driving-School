@@ -12,3 +12,13 @@ export async function addPupil(payload: AddPupilPayload) {
     console.error("Add Pupil Error:", error.response?.data || error.message);
   }
 }
+
+export async function getPupils() {
+  try {
+    const response = await api.get("/pupils");
+    return response.data;
+  } catch (err) {
+    const error = err as AxiosError<ErrorResponse>;
+    console.error("Get Pupils Error:", error.response?.data || error.message);
+  }
+}
