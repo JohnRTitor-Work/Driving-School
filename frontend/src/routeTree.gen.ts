@@ -9,16 +9,10 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TestDarkModeRouteImport } from './routes/test-dark-mode'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query'
 import { Route as DemoTableRouteImport } from './routes/demo.table'
 
-const TestDarkModeRoute = TestDarkModeRouteImport.update({
-  id: '/test-dark-mode',
-  path: '/test-dark-mode',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,52 +31,36 @@ const DemoTableRoute = DemoTableRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/test-dark-mode': typeof TestDarkModeRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/test-dark-mode': typeof TestDarkModeRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/test-dark-mode': typeof TestDarkModeRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/test-dark-mode' | '/demo/table' | '/demo/tanstack-query'
+  fullPaths: '/' | '/demo/table' | '/demo/tanstack-query'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/test-dark-mode' | '/demo/table' | '/demo/tanstack-query'
-  id:
-    | '__root__'
-    | '/'
-    | '/test-dark-mode'
-    | '/demo/table'
-    | '/demo/tanstack-query'
+  to: '/' | '/demo/table' | '/demo/tanstack-query'
+  id: '__root__' | '/' | '/demo/table' | '/demo/tanstack-query'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  TestDarkModeRoute: typeof TestDarkModeRoute
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/test-dark-mode': {
-      id: '/test-dark-mode'
-      path: '/test-dark-mode'
-      fullPath: '/test-dark-mode'
-      preLoaderRoute: typeof TestDarkModeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -109,7 +87,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  TestDarkModeRoute: TestDarkModeRoute,
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
 }

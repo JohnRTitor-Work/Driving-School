@@ -32,6 +32,7 @@ export default function Header() {
             ))}
           </NavigationMenuList>
         </NavigationMenu>
+        <ThemeSwitcher />
       </div>
     </header>
   );
