@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontalIcon } from "lucide-react";
 import { useDeletePupilById } from "@/api/pupil/pupil.mutation";
+import { Link } from "@tanstack/react-router";
 
 export const columns: ColumnDef<PupilInfo>[] = [
   {
@@ -73,6 +74,16 @@ export const columns: ColumnDef<PupilInfo>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem asChild>
+              <Link
+                to="/pupils/$id"
+                params={{
+                  id: pupil._id,
+                }}
+              >
+                View
+              </Link>
+            </DropdownMenuItem>
             <DropdownMenuItem onClick={handleDelete} disabled={isPending}>
               {isPending ? "Deleting..." : "Delete Pupil"}
             </DropdownMenuItem>
