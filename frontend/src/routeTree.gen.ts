@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ViewPupilsTableRouteImport } from './routes/view-pupils-table'
 import { Route as ViewPupilsRouteImport } from './routes/view-pupils'
 import { Route as AddPupilRouteImport } from './routes/add-pupil'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query'
 import { Route as DemoTableRouteImport } from './routes/demo.table'
 
+const ViewPupilsTableRoute = ViewPupilsTableRouteImport.update({
+  id: '/view-pupils-table',
+  path: '/view-pupils-table',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ViewPupilsRoute = ViewPupilsRouteImport.update({
   id: '/view-pupils',
   path: '/view-pupils',
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/add-pupil': typeof AddPupilRoute
   '/view-pupils': typeof ViewPupilsRoute
+  '/view-pupils-table': typeof ViewPupilsTableRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/add-pupil': typeof AddPupilRoute
   '/view-pupils': typeof ViewPupilsRoute
+  '/view-pupils-table': typeof ViewPupilsTableRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
@@ -60,6 +68,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/add-pupil': typeof AddPupilRoute
   '/view-pupils': typeof ViewPupilsRoute
+  '/view-pupils-table': typeof ViewPupilsTableRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
@@ -69,6 +78,7 @@ export interface FileRouteTypes {
     | '/'
     | '/add-pupil'
     | '/view-pupils'
+    | '/view-pupils-table'
     | '/demo/table'
     | '/demo/tanstack-query'
   fileRoutesByTo: FileRoutesByTo
@@ -76,6 +86,7 @@ export interface FileRouteTypes {
     | '/'
     | '/add-pupil'
     | '/view-pupils'
+    | '/view-pupils-table'
     | '/demo/table'
     | '/demo/tanstack-query'
   id:
@@ -83,6 +94,7 @@ export interface FileRouteTypes {
     | '/'
     | '/add-pupil'
     | '/view-pupils'
+    | '/view-pupils-table'
     | '/demo/table'
     | '/demo/tanstack-query'
   fileRoutesById: FileRoutesById
@@ -91,12 +103,20 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AddPupilRoute: typeof AddPupilRoute
   ViewPupilsRoute: typeof ViewPupilsRoute
+  ViewPupilsTableRoute: typeof ViewPupilsTableRoute
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/view-pupils-table': {
+      id: '/view-pupils-table'
+      path: '/view-pupils-table'
+      fullPath: '/view-pupils-table'
+      preLoaderRoute: typeof ViewPupilsTableRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/view-pupils': {
       id: '/view-pupils'
       path: '/view-pupils'
@@ -139,6 +159,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AddPupilRoute: AddPupilRoute,
   ViewPupilsRoute: ViewPupilsRoute,
+  ViewPupilsTableRoute: ViewPupilsTableRoute,
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
 }
