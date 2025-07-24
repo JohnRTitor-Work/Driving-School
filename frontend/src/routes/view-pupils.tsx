@@ -17,7 +17,7 @@ function RouteComponent() {
         pupilsList.map((pupil, index) => (
           <div key={index} className="border border-gray-300 my-4 p-4">
             <div>
-              <strong>Pupil NO:</strong> {index}
+              <strong>Pupil NO:</strong> {pupil._id}
             </div>
             <div>
               <strong>Name:</strong> {pupil.title}. {pupil.forename}{" "}

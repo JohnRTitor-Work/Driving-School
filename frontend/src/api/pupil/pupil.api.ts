@@ -10,8 +10,23 @@ export async function addPupil(payload: AddPupilPayload) {
   } catch (err) {
     const error = err as AxiosError<ErrorResponse>;
     console.error("Add Pupil Error:", error.response?.data || error.message);
+    return error.response?.data;
   }
 }
+
+export const deletePupilById = async (id: string) => {
+  try {
+    const response = await api.delete(`/pupils/${id}`);
+    return response.data;
+  } catch (err) {
+    const error = err as AxiosError<ErrorResponse>;
+    console.error(
+      "Delete Pupil By Id Error:",
+      error?.response?.data || error.message,
+    );
+    return error.response?.data;
+  }
+};
 
 export async function getPupils() {
   try {
