@@ -4,14 +4,22 @@ import {
 } from "@/api/pupil/pupil.api.schema";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAddPupil } from "@/api/pupil/pupil.mutation";
+import { useAddPupil, useEditPupilById } from "@/api/pupil/pupil.mutation";
 import { Button } from "../ui/button";
 
-type AddPupilFormProps = {
+type BasePupilFormProps = {
   initialData?: Partial<AddPupilPayload>;
+  useSubmitMutation: typeof useAddPupil | typeof useEditPupilById;
+  submitButtonLabelNormal: string;
+  submitButtonLabelPending: string;
 };
 
-export function AddPupilForm({ initialData }: AddPupilFormProps) {
+export function BasePupilForm({
+  initialData,
+  useSubmitMutation,
+  submitButtonLabelNormal,
+  submitButtonLabelPending,
+}: BasePupilFormProps) {
   const {
     handleSubmit,
     register,
@@ -32,10 +40,10 @@ export function AddPupilForm({ initialData }: AddPupilFormProps) {
     },
   });
 
-  const addPupilMutation = useAddPupil();
+  const submitMutation = useSubmitMutation();
 
   const onSubmit: SubmitHandler<AddPupilPayload> = async (data) => {
-    await addPupilMutation.mutateAsync(data);
+    await submitMutation.mutateAsync(data);
   };
 
   return (
@@ -354,18 +362,43 @@ export function AddPupilForm({ initialData }: AddPupilFormProps) {
         <Button
           type="submit"
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          disabled={isSubmitting || addPupilMutation.isPending}
+          disabled={isSubmitting || submitMutation.isPending}
         >
-          {isSubmitting || addPupilMutation.isPending
-            ? "Adding..."
-            : "Add Pupil"}
+          {isSubmitting || submitMutation.isPending
+            ? submitButtonLabelPending
+            : submitButtonLabelNormal}
         </Button>
-        {addPupilMutation.isError && (
+        {submitMutation.isError && (
           <div className="text-red-500 mt-2">
             Failed to add pupil. Please check your input.
           </div>
         )}
       </form>
     </div>
+  );
+}
+
+export function AddPupilForm() {
+  return (
+    <BasePupilForm
+      useSubmitMutation={useAddPupil}
+      submitButtonLabelNormal="Add Pupil"
+      submitButtonLabelPending="Adding Pupil..."
+    />
+  );
+}
+
+export function EditPupilForm({
+  initialData,
+}: {
+  initialData: Partial<AddPupilPayload>;
+}) {
+  return (
+    <BasePupilForm
+      useSubmitMutation={useEditPupilById}
+      submitButtonLabelNormal="Edit Pupil"
+      submitButtonLabelPending="Editing Pupil..."
+      initialData={initialData}
+    />
   );
 }
