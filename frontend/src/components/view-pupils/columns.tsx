@@ -84,6 +84,16 @@ export const columns: ColumnDef<PupilInfo>[] = [
                 View
               </Link>
             </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link
+                to="/pupils/$id/edit"
+                params={{
+                  id: pupil._id,
+                }}
+              >
+                Edit
+              </Link>
+            </DropdownMenuItem>
             <DropdownMenuItem onClick={handleDelete} disabled={isPending}>
               {isPending ? "Deleting..." : "Delete Pupil"}
             </DropdownMenuItem>
