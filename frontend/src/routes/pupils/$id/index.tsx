@@ -3,7 +3,7 @@ import type { PupilInfo } from "@/api/pupil/pupil.api.schema";
 import { createFileRoute } from "@tanstack/react-router";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
-export const Route = createFileRoute("/pupils/$id")({
+export const Route = createFileRoute("/pupils/$id/")({
   loader: async ({ params }) => {
     const apiResponse = await getPupilById(params.id);
     return { details: apiResponse?.data as PupilInfo };

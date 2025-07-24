@@ -7,7 +7,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddPupil } from "@/api/pupil/pupil.mutation";
 import { Button } from "../ui/button";
 
-export function AddPupilForm() {
+type AddPupilFormProps = {
+  initialData?: Partial<AddPupilPayload>;
+};
+
+export function AddPupilForm({ initialData }: AddPupilFormProps) {
   const {
     handleSubmit,
     register,
@@ -15,7 +19,7 @@ export function AddPupilForm() {
   } = useForm<AddPupilPayload>({
     resolver: zodResolver(addPupilSchema),
     // set some default values for the form
-    defaultValues: {
+    defaultValues: initialData ?? {
       allowTextMessaging: false,
       passedTheory: false,
       fott: false,
