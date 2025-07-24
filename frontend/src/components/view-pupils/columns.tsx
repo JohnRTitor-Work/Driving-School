@@ -9,16 +9,26 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreHorizontalIcon } from "lucide-react";
+import { ArrowUpDownIcon, MoreHorizontalIcon } from "lucide-react";
 import { useDeletePupilById } from "@/api/pupil/pupil.mutation";
 import { Link } from "@tanstack/react-router";
 
 export const columns: ColumnDef<PupilInfo>[] = [
   {
-    header: "Name",
+    id: "name",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Name
+          <ArrowUpDownIcon className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     accessorFn: (row) =>
       `${row.title ? `${row.title}. ` : ""}${row.forename} ${row.surname}`,
-    id: "name",
   },
   {
     accessorKey: "email",
@@ -30,11 +40,31 @@ export const columns: ColumnDef<PupilInfo>[] = [
   },
   {
     accessorKey: "gender",
-    header: "Gender",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Gender
+          <ArrowUpDownIcon className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "pupilType",
-    header: "Pupil Type",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Pupil Type
+          <ArrowUpDownIcon className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "allocatedTo",
@@ -46,7 +76,17 @@ export const columns: ColumnDef<PupilInfo>[] = [
   },
   {
     accessorKey: "passedTheory",
-    header: "Passed Theory",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Passed Thoery
+          <ArrowUpDownIcon className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ getValue }) => (getValue() ? "Yes" : "No"),
   },
   {
