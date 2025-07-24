@@ -1,4 +1,4 @@
-import type { AddPupilPayload } from "@/api/pupil/pupil.api.schema";
+import type { PupilInfo } from "@/api/pupil/pupil.api.schema";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,10 +11,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontalIcon } from "lucide-react";
 import { useDeletePupilById } from "@/api/pupil/pupil.mutation";
-
-export type PupilInfo = AddPupilPayload & {
-  _id: string;
-};
 
 export const columns: ColumnDef<PupilInfo>[] = [
   {

@@ -153,3 +153,6 @@ export const addPupilSchema = z.object({
 });
 
 export type AddPupilPayload = z.infer<typeof addPupilSchema>;
+export type PupilInfo = AddPupilPayload & {
+  _id: string;
+};

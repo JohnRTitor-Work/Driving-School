@@ -1,10 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPupils } from "./pupil.api";
-import type { AddPupilPayload } from "./pupil.api.schema";
+import { getPupilById, getPupils } from "./pupil.api";
+import type { PupilInfo } from "./pupil.api.schema";
 
 export const useGetPupils = () =>
-  useQuery<AddPupilPayload[]>({
+  useQuery<PupilInfo[]>({
     queryKey: ["get-pupils"],
     queryFn: () => getPupils(),
+    select: (res: any) => res.data,
+  });
+
+export const useGetPupilById = (id: string) =>
+  useQuery<PupilInfo>({
+    queryKey: ["get-pupils", { id }],
+    queryFn: () => getPupilById(id),
     select: (res: any) => res.data,
   });

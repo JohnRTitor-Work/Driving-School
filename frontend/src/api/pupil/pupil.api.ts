@@ -1,6 +1,6 @@
 import api from "@/lib/axios-instance";
-import type { AddPupilPayload } from "./pupil.api.schema";
-import type { AxiosError } from "axios";
+import type { AddPupilPayload, PupilInfo } from "./pupil.api.schema";
+import type { AxiosError, AxiosResponse } from "axios";
 import type { ErrorResponse } from "@/types";
 
 export async function addPupil(payload: AddPupilPayload) {
@@ -35,5 +35,18 @@ export async function getPupils() {
   } catch (err) {
     const error = err as AxiosError<ErrorResponse>;
     console.error("Get Pupils Error:", error.response?.data || error.message);
+  }
+}
+
+export async function getPupilById(id: string) {
+  try {
+    const response = await api.get(`/pupils/${id}`);
+    return response.data;
+  } catch (err) {
+    const error = err as AxiosError<ErrorResponse>;
+    console.error(
+      "Get Pupil By Id Error:",
+      error.response?.data || error.message,
+    );
   }
 }
