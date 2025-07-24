@@ -1,4 +1,4 @@
-import { DataTable } from "@/components/view-pupils/data-table";
+import { DataTable } from "@/components/ui/data-table";
 import { columns } from "@/components/view-pupils/columns";
 import { createFileRoute } from "@tanstack/react-router";
 import { useGetPupils } from "@/api/pupil/pupil.query";
@@ -15,7 +15,11 @@ function RouteComponent() {
 
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={pupilsList} />
+      {pupilsList && pupilsList.length > 0 ? (
+        <DataTable columns={columns} data={pupilsList} />
+      ) : (
+        <>No pupils found.</>
+      )}
     </div>
   );
 }
