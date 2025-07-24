@@ -1,6 +1,7 @@
 import { getPupilById } from "@/api/pupil/pupil.api";
 import type { PupilInfo } from "@/api/pupil/pupil.api.schema";
 import { EditPupilForm } from "@/components/Forms/AddPupilForm";
+import { PageHeader } from "@/components/page-header";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/pupils/$id/edit")({
@@ -20,7 +21,10 @@ function RouteComponent() {
 
   return (
     <div className="container mx-auto py-10">
-      <h2>Edit Pupil: </h2>
+      <PageHeader
+        title="Edit Pupil"
+        description={`Edit details of ${details._id} here.`}
+      />
       <EditPupilForm initialData={details} />
     </div>
   );
