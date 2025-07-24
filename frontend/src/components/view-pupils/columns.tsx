@@ -4,7 +4,8 @@ import type { ColumnDef } from "@tanstack/react-table";
 export const columns: ColumnDef<AddPupilPayload>[] = [
   {
     header: "Name",
-    accessorFn: (row) => `${row.title}. ${row.forename} ${row.surname}`,
+    accessorFn: (row) =>
+      `${row.title ? `${row.title}. ` : ""}${row.forename} ${row.surname}`,
     id: "name",
   },
   {
