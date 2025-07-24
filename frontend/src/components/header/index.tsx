@@ -11,8 +11,8 @@ import { ThemeSwitcher } from "./ThemeSwitcher";
 export default function Header() {
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/demo/tanstack-query", label: "TanStack Query" },
-    { href: "/demo/table", label: "TanStack Table" },
+    { href: "/add-pupil", label: "Add Pupil Form" },
+    { href: "/view-pupils-table", label: "View Pupils Table" },
   ];
 
   return (
