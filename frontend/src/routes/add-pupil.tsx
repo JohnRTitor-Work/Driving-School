@@ -1,4 +1,4 @@
-import { AddPupilForm } from "@/components/Forms/AddPupilForm";
+import { AddPupilForm } from "@/components/Forms/pupil-forms";
 import { PageHeader } from "@/components/page-header";
 import { createFileRoute } from "@tanstack/react-router";
 

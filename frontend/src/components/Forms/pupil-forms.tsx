@@ -1,25 +1,19 @@
 import {
   addPupilSchema,
   type AddPupilPayload,
+  type PupilInfo,
 } from "@/api/pupil/pupil.api.schema";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddPupil, useEditPupilById } from "@/api/pupil/pupil.mutation";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 type BasePupilFormProps = {
-  initialData?: Partial<AddPupilPayload>;
-  useSubmitMutation: typeof useAddPupil | typeof useEditPupilById;
-  submitButtonLabelNormal: string;
-  submitButtonLabelPending: string;
+  initialData?: Partial<PupilInfo>;
+  type: "add" | "edit";
 };
 
-export function BasePupilForm({
-  initialData,
-  useSubmitMutation,
-  submitButtonLabelNormal,
-  submitButtonLabelPending,
-}: BasePupilFormProps) {
+export function BasePupilForm({ initialData, type }: BasePupilFormProps) {
   const {
     handleSubmit,
     register,
@@ -40,10 +34,28 @@ export function BasePupilForm({
     },
   });
 
-  const submitMutation = useSubmitMutation();
+  const addMutation = useAddPupil();
+  const editMutation = useEditPupilById();
+
+  const submitMutation = type === "add" ? addMutation : editMutation;
+  const submitText = {
+    edit: {
+      normal: "Edit Pupil",
+      submitting: "Editing Pupil...",
+    },
+    add: {
+      normal: "Add Pupil",
+      submitting: "Adding Pupil...",
+    },
+  };
 
   const onSubmit: SubmitHandler<AddPupilPayload> = async (data) => {
-    await submitMutation.mutateAsync(data);
+    if (type === "add") {
+      addMutation.mutateAsync(data);
+    } else {
+      const { _id: id = "" } = initialData ?? {};
+      editMutation.mutateAsync({ id, payload: data });
+    }
   };
 
   return (
@@ -365,8 +377,8 @@ export function BasePupilForm({
           disabled={isSubmitting || submitMutation.isPending}
         >
           {isSubmitting || submitMutation.isPending
-            ? submitButtonLabelPending
-            : submitButtonLabelNormal}
+            ? submitText[type]["submitting"]
+            : submitText[type]["normal"]}
         </Button>
         {submitMutation.isError && (
           <div className="text-red-500 mt-2">
@@ -379,26 +391,13 @@ export function BasePupilForm({
 }
 
 export function AddPupilForm() {
-  return (
-    <BasePupilForm
-      useSubmitMutation={useAddPupil}
-      submitButtonLabelNormal="Add Pupil"
-      submitButtonLabelPending="Adding Pupil..."
-    />
-  );
+  return <BasePupilForm type="add" />;
 }
 
 export function EditPupilForm({
   initialData,
 }: {
-  initialData: Partial<AddPupilPayload>;
+  initialData: Partial<PupilInfo>;
 }) {
-  return (
-    <BasePupilForm
-      useSubmitMutation={useEditPupilById}
-      submitButtonLabelNormal="Edit Pupil"
-      submitButtonLabelPending="Editing Pupil..."
-      initialData={initialData}
-    />
-  );
+  return <BasePupilForm type="edit" initialData={initialData} />;
 }

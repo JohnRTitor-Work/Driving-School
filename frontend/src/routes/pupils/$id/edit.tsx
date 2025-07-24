@@ -1,8 +1,8 @@
 import { getPupilById } from "@/api/pupil/pupil.api";
 import type { PupilInfo } from "@/api/pupil/pupil.api.schema";
-import { EditPupilForm } from "@/components/Forms/AddPupilForm";
+import { EditPupilForm } from "@/components/Forms/pupil-forms";
 import { PageHeader } from "@/components/page-header";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useParams } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/pupils/$id/edit")({
   loader: async ({ params }) => {
@@ -13,6 +13,7 @@ export const Route = createFileRoute("/pupils/$id/edit")({
 });
 
 function RouteComponent() {
+  const { id } = Route.useParams();
   const { details } = Route.useLoaderData();
 
   if (!details) {
@@ -23,7 +24,7 @@ function RouteComponent() {
     <div className="container mx-auto py-10">
       <PageHeader
         title="Edit Pupil"
-        description={`Edit details of ${details._id} here.`}
+        description={`Edit details of ${id} here.`}
       />
       <EditPupilForm initialData={details} />
     </div>
