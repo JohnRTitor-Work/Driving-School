@@ -5,11 +5,13 @@ import { toast } from "sonner";
 export function useAddPupil() {
   return useMutation({
     mutationFn: addPupil,
-    onSuccess: () => {
-      toast.success("Pupil added successfully.");
+    onSuccess: (res) => {
+      if (res.success) {
+        toast.success("Pupil added successfully.");
+      }
     },
     onError: () => {
-      toast.error("Pupil update failed.");
+      toast.error("Pupil addition failed.");
     },
   });
 }

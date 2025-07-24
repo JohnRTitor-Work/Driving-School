@@ -30,8 +30,8 @@ export function AddPupilForm() {
 
   const addPupilMutation = useAddPupil();
 
-  const onSubmit: SubmitHandler<AddPupilPayload> = (data) => {
-    addPupilMutation.mutateAsync(data);
+  const onSubmit: SubmitHandler<AddPupilPayload> = async (data) => {
+    await addPupilMutation.mutateAsync(data);
   };
 
   return (
@@ -350,9 +350,11 @@ export function AddPupilForm() {
         <Button
           type="submit"
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          disabled={isSubmitting}
+          disabled={isSubmitting || addPupilMutation.isPending}
         >
-          {isSubmitting ? "Adding..." : "Add Pupil"}
+          {isSubmitting || addPupilMutation.isPending
+            ? "Adding..."
+            : "Add Pupil"}
         </Button>
         {addPupilMutation.isError && (
           <div className="text-red-500 mt-2">
