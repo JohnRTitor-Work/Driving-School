@@ -1,20 +1,17 @@
-import { getPupilById } from "@/api/pupil/pupil.api";
 import type { PupilInfo } from "@/api/pupil/pupil.api.schema";
 import { createFileRoute } from "@tanstack/react-router";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { useGetPupilById } from "@/api/pupil/pupil.query";
 
 export const Route = createFileRoute("/pupils/$id/")({
-  loader: async ({ params }) => {
-    const apiResponse = await getPupilById(params.id);
-    return { details: apiResponse?.data as PupilInfo };
-  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { details } = Route.useLoaderData();
+  const { id } = Route.useParams();
+  const { data: pupilData } = useGetPupilById(id);
 
-  if (!details) {
+  if (!pupilData) {
     return <div>Pupil not found.</div>;
   }
 
@@ -25,47 +22,47 @@ function RouteComponent() {
       </CardHeader>
       <CardContent>
         <div>
-          <strong>Pupil Id:</strong> {details._id}
+          <strong>Pupil Id:</strong> {pupilData._id}
         </div>
         <div>
-          <strong>Name:</strong> {details.title}. {details.forename}{" "}
-          {details.surname}
+          <strong>Name:</strong> {pupilData.title}. {pupilData.forename}{" "}
+          {pupilData.surname}
         </div>
         <div>
-          <strong>Email:</strong> {details.email}
+          <strong>Email:</strong> {pupilData.email}
         </div>
         <div>
-          <strong>Date of Birth:</strong> {details.dob}
+          <strong>Date of Birth:</strong> {pupilData.dob}
         </div>
         <div>
-          <strong>Gender:</strong> {details.gender}
+          <strong>Gender:</strong> {pupilData.gender}
         </div>
         <div>
           <strong>Home:</strong>
           <div className="ml-4">
             <div>
-              <strong>Mobile:</strong> {details.home?.mobile}
+              <strong>Mobile:</strong> {pupilData.home?.mobile}
             </div>
             <div>
-              <strong>Work:</strong> {details.home?.work}
+              <strong>Work:</strong> {pupilData.home?.work}
             </div>
           </div>
         </div>
         <div>
           <strong>Allow Text Messaging:</strong>{" "}
-          {details.allowTextMessaging ? "Yes" : "No"}
+          {pupilData.allowTextMessaging ? "Yes" : "No"}
         </div>
         <div>
           <strong>Pickup Address:</strong>
           <div className="ml-4">
             <div>
-              <strong>Postcode:</strong> {details.pickupAddress?.postcode}
+              <strong>Postcode:</strong> {pupilData.pickupAddress?.postcode}
             </div>
             <div>
-              <strong>House No:</strong> {details.pickupAddress?.houseNo}
+              <strong>House No:</strong> {pupilData.pickupAddress?.houseNo}
             </div>
             <div>
-              <strong>Address:</strong> {details.pickupAddress?.address}
+              <strong>Address:</strong> {pupilData.pickupAddress?.address}
             </div>
           </div>
         </div>
@@ -73,63 +70,65 @@ function RouteComponent() {
           <strong>Home Address:</strong>
           <div className="ml-4">
             <div>
-              <strong>Postcode:</strong> {details.homeAddress?.postcode}
+              <strong>Postcode:</strong> {pupilData.homeAddress?.postcode}
             </div>
             <div>
-              <strong>House No:</strong> {details.homeAddress?.houseNo}
+              <strong>House No:</strong> {pupilData.homeAddress?.houseNo}
             </div>
             <div>
-              <strong>Address:</strong> {details.homeAddress?.address}
+              <strong>Address:</strong> {pupilData.homeAddress?.address}
             </div>
           </div>
         </div>
         <div>
-          <strong>Pupil Type:</strong> {details.pupilType}
+          <strong>Pupil Type:</strong> {pupilData.pupilType}
         </div>
         <div>
-          <strong>Pupil Owner:</strong> {details.pupilOwner}
+          <strong>Pupil Owner:</strong> {pupilData.pupilOwner}
         </div>
         <div>
-          <strong>Allocated To:</strong> {details.allocatedTo}
+          <strong>Allocated To:</strong> {pupilData.allocatedTo}
         </div>
         <div>
-          <strong>License Type:</strong> {details.licenseType}
+          <strong>License Type:</strong> {pupilData.licenseType}
         </div>
         <div>
-          <strong>License No:</strong> {details.licenseNo}
+          <strong>License No:</strong> {pupilData.licenseNo}
         </div>
         <div>
-          <strong>Passed Theory:</strong> {details.passedTheory ? "Yes" : "No"}
+          <strong>Passed Theory:</strong>{" "}
+          {pupilData.passedTheory ? "Yes" : "No"}
         </div>
         <div>
-          <strong>FOTT:</strong> {details.fott ? "Yes" : "No"}
+          <strong>FOTT:</strong> {pupilData.fott ? "Yes" : "No"}
         </div>
         <div>
-          <strong>Full Access:</strong> {details.fullAccess ? "Yes" : "No"}
+          <strong>Full Access:</strong> {pupilData.fullAccess ? "Yes" : "No"}
         </div>
         <div>
-          <strong>Pupil Caution:</strong> {details.pupilCaution ? "Yes" : "No"}
+          <strong>Pupil Caution:</strong>{" "}
+          {pupilData.pupilCaution ? "Yes" : "No"}
         </div>
         <div>
-          <strong>Cert No:</strong> {details.certNo}
+          <strong>Cert No:</strong> {pupilData.certNo}
         </div>
         <div>
-          <strong>Date Passed:</strong> {details.datePassed ?? "N/A"}
+          <strong>Date Passed:</strong> {pupilData.datePassed ?? "N/A"}
         </div>
         <div>
-          <strong>Usual Availability:</strong> {details.usualAvailability}
+          <strong>Usual Availability:</strong> {pupilData.usualAvailability}
         </div>
         <div>
-          <strong>Discount:</strong> {details.discount}
+          <strong>Discount:</strong> {pupilData.discount}
         </div>
         <div>
-          <strong>Default Product:</strong> {details.defaultProduct}
+          <strong>Default Product:</strong> {pupilData.defaultProduct}
         </div>
         <div>
-          <strong>Online Password:</strong> {details.onlinePassword}
+          <strong>Online Password:</strong> {pupilData.onlinePassword}
         </div>
         <div>
-          <strong>Notes:</strong> {details.notes}
+          <strong>Notes:</strong> {pupilData.notes}
         </div>
       </CardContent>
     </Card>

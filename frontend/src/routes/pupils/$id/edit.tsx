@@ -1,22 +1,17 @@
-import { getPupilById } from "@/api/pupil/pupil.api";
-import type { PupilInfo } from "@/api/pupil/pupil.api.schema";
+import { useGetPupilById } from "@/api/pupil/pupil.query";
 import { EditPupilForm } from "@/components/Forms/pupil-forms";
 import { PageHeader } from "@/components/page-header";
-import { createFileRoute, useParams } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/pupils/$id/edit")({
-  loader: async ({ params }) => {
-    const apiResponse = await getPupilById(params.id);
-    return { details: apiResponse?.data as PupilInfo };
-  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
   const { id } = Route.useParams();
-  const { details } = Route.useLoaderData();
+  const { data: pupilData } = useGetPupilById(id);
 
-  if (!details) {
+  if (!pupilData) {
     return <div>Pupil not found.</div>;
   }
 
@@ -26,7 +21,7 @@ function RouteComponent() {
         title="Edit Pupil"
         description={`Edit details of ${id} here.`}
       />
-      <EditPupilForm initialData={details} />
+      <EditPupilForm initialData={pupilData} />
     </div>
   );
 }
