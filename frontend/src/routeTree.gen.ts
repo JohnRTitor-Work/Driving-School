@@ -12,8 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PupilsIndexRouteImport } from './routes/pupils/index'
 import { Route as PupilsAddRouteImport } from './routes/pupils/add'
-import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query'
-import { Route as DemoTableRouteImport } from './routes/demo.table'
 import { Route as PupilsIdIndexRouteImport } from './routes/pupils/$id/index'
 import { Route as PupilsIdEditRouteImport } from './routes/pupils/$id/edit'
 
@@ -32,16 +30,6 @@ const PupilsAddRoute = PupilsAddRouteImport.update({
   path: '/pupils/add',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
-  id: '/demo/tanstack-query',
-  path: '/demo/tanstack-query',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoTableRoute = DemoTableRouteImport.update({
-  id: '/demo/table',
-  path: '/demo/table',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PupilsIdIndexRoute = PupilsIdIndexRouteImport.update({
   id: '/pupils/$id/',
   path: '/pupils/$id/',
@@ -55,8 +43,6 @@ const PupilsIdEditRoute = PupilsIdEditRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/demo/table': typeof DemoTableRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/pupils/add': typeof PupilsAddRoute
   '/pupils': typeof PupilsIndexRoute
   '/pupils/$id/edit': typeof PupilsIdEditRoute
@@ -64,8 +50,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/demo/table': typeof DemoTableRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/pupils/add': typeof PupilsAddRoute
   '/pupils': typeof PupilsIndexRoute
   '/pupils/$id/edit': typeof PupilsIdEditRoute
@@ -74,8 +58,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/demo/table': typeof DemoTableRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/pupils/add': typeof PupilsAddRoute
   '/pupils/': typeof PupilsIndexRoute
   '/pupils/$id/edit': typeof PupilsIdEditRoute
@@ -85,26 +67,15 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/demo/table'
-    | '/demo/tanstack-query'
     | '/pupils/add'
     | '/pupils'
     | '/pupils/$id/edit'
     | '/pupils/$id'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/demo/table'
-    | '/demo/tanstack-query'
-    | '/pupils/add'
-    | '/pupils'
-    | '/pupils/$id/edit'
-    | '/pupils/$id'
+  to: '/' | '/pupils/add' | '/pupils' | '/pupils/$id/edit' | '/pupils/$id'
   id:
     | '__root__'
     | '/'
-    | '/demo/table'
-    | '/demo/tanstack-query'
     | '/pupils/add'
     | '/pupils/'
     | '/pupils/$id/edit'
@@ -113,8 +84,6 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  DemoTableRoute: typeof DemoTableRoute
-  DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   PupilsAddRoute: typeof PupilsAddRoute
   PupilsIndexRoute: typeof PupilsIndexRoute
   PupilsIdEditRoute: typeof PupilsIdEditRoute
@@ -144,20 +113,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PupilsAddRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/demo/tanstack-query': {
-      id: '/demo/tanstack-query'
-      path: '/demo/tanstack-query'
-      fullPath: '/demo/tanstack-query'
-      preLoaderRoute: typeof DemoTanstackQueryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/table': {
-      id: '/demo/table'
-      path: '/demo/table'
-      fullPath: '/demo/table'
-      preLoaderRoute: typeof DemoTableRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/pupils/$id/': {
       id: '/pupils/$id/'
       path: '/pupils/$id'
@@ -177,8 +132,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  DemoTableRoute: DemoTableRoute,
-  DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   PupilsAddRoute: PupilsAddRoute,
   PupilsIndexRoute: PupilsIndexRoute,
   PupilsIdEditRoute: PupilsIdEditRoute,
