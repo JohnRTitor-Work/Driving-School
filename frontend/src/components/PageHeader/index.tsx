@@ -7,8 +7,11 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { ThemeSwitcher } from "./ThemeSwitcher";
+import { useLocation } from "@tanstack/react-router";
 
 export default function PageHeader() {
+  const { pathname } = useLocation();
+
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/pupils/add", label: "Add Pupil" },
@@ -26,7 +29,9 @@ export default function PageHeader() {
                   className={navigationMenuTriggerStyle()}
                   asChild
                 >
-                  <Link to={link.href}>{link.label}</Link>
+                  <Link to={link.href} disabled={pathname === link.href}>
+                    {link.label}
+                  </Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
             ))}
