@@ -1,4 +1,4 @@
-import { useTheme } from "@/integrations/theme-provider";
+import { useTheme } from "@/provider/theme-provider";
 import { Toaster as Sonner, type ToasterProps } from "sonner";
 
 const Toaster = ({ ...props }: ToasterProps) => {

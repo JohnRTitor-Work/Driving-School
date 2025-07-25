@@ -9,7 +9,7 @@ import { routeTree } from "./routeTree.gen";
 
 import "./styles.css";
 import reportWebVitals from "./reportWebVitals.ts";
-import { ThemeProvider } from "@/integrations/theme-provider";
+import { ThemeProvider } from "@/provider/theme-provider";
 
 // Create a new router instance
 const router = createRouter({

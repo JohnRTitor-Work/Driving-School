@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 
-export default function Header() {
+export default function PageHeader() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/pupils/add", label: "Add Pupil" },

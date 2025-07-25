@@ -1,6 +1,6 @@
 import { useGetPupilById } from "@/api/pupil/pupil.query";
 import { EditPupilForm } from "@/components/Forms/pupil-forms";
-import { PageHeader } from "@/components/page-header";
+import { PageTitleHeader } from "@/components/common/page-title-header";
 import { useParams } from "@tanstack/react-router";
 
 const EditPupilPage = () => {
@@ -15,7 +15,7 @@ const EditPupilPage = () => {
 
   return (
     <div className="container mx-auto py-10">
-      <PageHeader
+      <PageTitleHeader
         title="Edit Pupil"
         description={`Edit details of ${id} here.`}
       />

@@ -1,10 +1,10 @@
 import { AddPupilForm } from "@/components/Forms/pupil-forms";
-import { PageHeader } from "@/components/page-header";
+import { PageTitleHeader } from "@/components/common/page-title-header";
 
 const AddPupilPage = () => {
   return (
     <div className="container mx-auto py-10">
-      <PageHeader title="Add Pupil" />
+      <PageTitleHeader title="Add Pupil" />
       <AddPupilForm />
     </div>
   );
