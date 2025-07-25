@@ -11,8 +11,8 @@ import { ThemeSwitcher } from "./ThemeSwitcher";
 export default function Header() {
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/add-pupil", label: "Add Pupil Form" },
-    { href: "/view-pupils-table", label: "View Pupils Table" },
+    { href: "/pupils/add", label: "Add Pupil" },
+    { href: "/pupils", label: "View Pupils" },
   ];
 
   return (

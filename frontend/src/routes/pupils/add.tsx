@@ -1,14 +1,14 @@
+import AddPupilPage from "@/pages/Pupils/add-pupil.page";
 import { createFileRoute } from "@tanstack/react-router";
-import PupilPage from "@/pages/Pupils/pupil.page";
 
-export const Route = createFileRoute("/pupils/$id/")({
+export const Route = createFileRoute("/pupils/add")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
   return (
     <>
-      <PupilPage />
+      <AddPupilPage />
     </>
   );
 }

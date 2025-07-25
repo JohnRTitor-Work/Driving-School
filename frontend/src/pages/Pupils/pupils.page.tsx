@@ -1,13 +1,8 @@
-import { DataTable } from "@/components/ui/data-table";
-import { columns } from "@/components/view-pupils/columns";
-import { createFileRoute } from "@tanstack/react-router";
 import { useGetPupils } from "@/api/pupil/pupil.query";
+import { columns } from "@/components/view-pupils/columns";
+import { DataTable } from "@/components/ui/data-table";
 
-export const Route = createFileRoute("/view-pupils-table")({
-  component: RouteComponent,
-});
-
-function RouteComponent() {
+const PupilsPage = () => {
   const { data: pupilsList, isLoading, error } = useGetPupils();
 
   if (isLoading) return <div>Loading pupils...</div>;
@@ -22,4 +17,6 @@ function RouteComponent() {
       )}
     </div>
   );
-}
+};
+
+export default PupilsPage;
