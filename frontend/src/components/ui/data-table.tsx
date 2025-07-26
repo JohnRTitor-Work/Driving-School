@@ -21,6 +21,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { DataTablePagination } from "@/components/ui/data-table-pagination";
+import { DataTableViewOptions } from "./data-table-view-options";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -59,6 +60,7 @@ export function DataTable<TData, TValue>({
           onChange={(event) => setGlobalFilter(event.target.value)}
           className="max-w-sm"
         />
+        <DataTableViewOptions table={table} />
       </div>
       <div className="overflow-hidden rounded-md border">
         <Table>
