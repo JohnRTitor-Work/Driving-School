@@ -7,7 +7,9 @@ const AddPupilPage = () => {
 
   return (
     <div className="container mx-auto py-10">
-      <PageTitleHeader title="Add Pupil" />
+      <div className="max-w-4xl mx-auto px-6">
+        <PageTitleHeader title="Add Pupil" />
+      </div>
       <AddPupilForm
         onSuccessAction={() => {
           navigate({ to: "/pupils" });

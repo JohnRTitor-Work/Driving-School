@@ -1,5 +1,6 @@
 import { useGetPupils } from "@/api/pupil/pupil.query";
 import { columns } from "@/components/ViewPupils/ViewPupilTable";
+import { PageTitleHeader } from "@/components/common/page-title-header";
 import { DataTable } from "@/components/ui/data-table";
 
 const PupilsPage = () => {
@@ -10,6 +11,7 @@ const PupilsPage = () => {
 
   return (
     <div className="container mx-auto py-10">
+      <PageTitleHeader title="Pupils List" />
       {pupilsList && pupilsList.length > 0 ? (
         <DataTable columns={columns} data={pupilsList} />
       ) : (
