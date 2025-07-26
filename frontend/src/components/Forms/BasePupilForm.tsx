@@ -146,7 +146,6 @@ export function BasePupilForm({
                 name="dob"
                 label="Date of Birth *"
               />
-
               <FormSelectField
                 form={form}
                 name="gender"
@@ -172,7 +171,6 @@ export function BasePupilForm({
                 label="Mobile"
                 placeholder="Enter mobile number"
               />
-
               <FormPhoneField
                 form={form}
                 name="home.work"
@@ -189,19 +187,19 @@ export function BasePupilForm({
           </FormFieldsetField>
 
           <FormFieldsetField legend="Pickup Address">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <FormInputField
-                form={form}
-                name="pickupAddress.postcode"
-                label="Postcode"
-              />
-
-              <FormInputField
-                form={form}
-                name="pickupAddress.houseNo"
-                label="House No"
-              />
-
+            <div className="grid grid-cols-1 gap-4">
+              <div className="grid grid-cols-2 gap-4">
+                <FormInputField
+                  form={form}
+                  name="pickupAddress.postcode"
+                  label="Postcode"
+                />
+                <FormInputField
+                  form={form}
+                  name="pickupAddress.houseNo"
+                  label="House No"
+                />
+              </div>
               <FormInputField
                 form={form}
                 name="pickupAddress.address"
@@ -212,19 +210,19 @@ export function BasePupilForm({
           </FormFieldsetField>
 
           <FormFieldsetField legend="Home Address">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <FormInputField
-                form={form}
-                name="homeAddress.postcode"
-                label="Postcode"
-              />
-
-              <FormInputField
-                form={form}
-                name="homeAddress.houseNo"
-                label="House No"
-              />
-
+            <div className="grid grid-cols-1 gap-4">
+              <div className="grid grid-cols-2 gap-4">
+                <FormInputField
+                  form={form}
+                  name="homeAddress.postcode"
+                  label="Postcode"
+                />
+                <FormInputField
+                  form={form}
+                  name="homeAddress.houseNo"
+                  label="House No"
+                />
+              </div>
               <FormInputField
                 form={form}
                 name="homeAddress.address"
@@ -234,87 +232,88 @@ export function BasePupilForm({
             </div>
           </FormFieldsetField>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <FormSelectField
+          <FormFieldsetField legend="Lesson & License Info">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-10">
+                <FormSelectField
+                  form={form}
+                  name="pupilType"
+                  label="Pupil Type"
+                  options={pupilTypeOptions}
+                />
+                <FormSelectField
+                  form={form}
+                  name="licenseType"
+                  label="License Type"
+                  options={licenseTypeOptions}
+                />
+              </div>
+              <FormInputField form={form} name="licenseNo" label="License No" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <FormInputField form={form} name="certNo" label="Cert No" />
+              <FormDateCalenderField
+                form={form}
+                name="datePassed"
+                label="Date Passed"
+              />
+            </div>
+          </FormFieldsetField>
+
+          <FormFieldsetField legend="Administrative Details">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <FormInputField
+                form={form}
+                name="pupilOwner"
+                label="Pupil Owner"
+              />
+              <FormInputField
+                form={form}
+                name="allocatedTo"
+                label="Allocated To"
+              />
+              <FormInputField
+                form={form}
+                name="defaultProduct"
+                label="Default Product"
+              />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <FormInputField form={form} name="discount" label="Discount" />
+              <FormInputField
+                form={form}
+                name="usualAvailability"
+                label="Usual Availability"
+              />
+            </div>
+          </FormFieldsetField>
+
+          <FormFieldsetField legend="Access Flags & Security">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <FormCheckboxField
+                form={form}
+                name="passedTheory"
+                label="Passed Theory"
+              />
+              <FormCheckboxField form={form} name="fott" label="FOTT" />
+              <FormCheckboxField
+                form={form}
+                name="fullAccess"
+                label="Full Access"
+              />
+              <FormCheckboxField
+                form={form}
+                name="pupilCaution"
+                label="Pupil Caution"
+              />
+            </div>
+
+            <FormPasswordField
               form={form}
-              name="pupilType"
-              label="Pupil Type"
-              options={pupilTypeOptions}
+              name="onlinePassword"
+              label="Online Password"
             />
-
-            <FormInputField form={form} name="pupilOwner" label="Pupil Owner" />
-
-            <FormInputField
-              form={form}
-              name="allocatedTo"
-              label="Allocated To"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <FormSelectField
-              form={form}
-              name="licenseType"
-              label="License Type"
-              options={licenseTypeOptions}
-            />
-
-            <FormInputField form={form} name="licenseNo" label="License No" />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <FormCheckboxField
-              form={form}
-              name="passedTheory"
-              label="Passed Theory"
-            />
-
-            <FormCheckboxField form={form} name="fott" label="FOTT" />
-
-            <FormCheckboxField
-              form={form}
-              name="fullAccess"
-              label="Full Access"
-            />
-
-            <FormCheckboxField
-              form={form}
-              name="pupilCaution"
-              label="Pupil Caution"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <FormInputField form={form} name="certNo" label="Cert No" />
-
-            <FormDateCalenderField
-              form={form}
-              name="datePassed"
-              label="Date Passed"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <FormInputField
-              form={form}
-              name="usualAvailability"
-              label="Usual Availability"
-            />
-
-            <FormInputField form={form} name="discount" label="Discount" />
-
-            <FormInputField
-              form={form}
-              name="defaultProduct"
-              label="Default Product"
-            />
-          </div>
-
-          <FormPasswordField
-            form={form}
-            name="onlinePassword"
-            label="Online Password"
-          />
+          </FormFieldsetField>
 
           <FormTextareaField form={form} name="notes" label="Notes" rows={3} />
 
