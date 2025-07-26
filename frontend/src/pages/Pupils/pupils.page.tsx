@@ -1,5 +1,5 @@
 import { useGetPupils } from "@/api/pupil/pupil.query";
-import { columns } from "@/components/Table/ViewPupilTable";
+import { columns } from "@/components/ViewPupils/ViewPupilTable";
 import { DataTable } from "@/components/ui/data-table";
 
 const PupilsPage = () => {
