@@ -113,7 +113,7 @@ export function BasePupilForm({
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormFieldsetField legend="Personal Information">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-2">
-              <div className="md:col-span-2">
+              <div className="col-span-2 md:col-span-3">
                 <FormSelectField
                   form={form}
                   name="title"
@@ -123,7 +123,7 @@ export function BasePupilForm({
                 />
               </div>
 
-              <div className="md:col-span-5">
+              <div className="col-span-5 md:col-span-4">
                 <FormInputField
                   form={form}
                   name="forename"
@@ -132,7 +132,7 @@ export function BasePupilForm({
                 />
               </div>
 
-              <div className="md:col-span-5">
+              <div className="col-span-5 md:col-span-4">
                 <FormInputField
                   form={form}
                   name="surname"
