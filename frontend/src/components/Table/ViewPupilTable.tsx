@@ -12,6 +12,7 @@ import {
 import { ArrowUpDownIcon, MoreHorizontalIcon } from "lucide-react";
 import { useDeletePupilById } from "@/api/pupil/pupil.mutation";
 import { Link } from "@tanstack/react-router";
+import { format } from "date-fns";
 
 export const columns: ColumnDef<PupilInfo>[] = [
   {
@@ -37,6 +38,7 @@ export const columns: ColumnDef<PupilInfo>[] = [
   {
     accessorKey: "dob",
     header: "Date of Birth",
+    accessorFn: (row) => `${format(row.dob, "yyyy-MM-dd")}`,
   },
   {
     accessorKey: "gender",
