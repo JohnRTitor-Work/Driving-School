@@ -109,51 +109,62 @@ export function BasePupilForm({
     <div className="max-w-4xl mx-auto p-6">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <FormFieldsetField legend="Name">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <FormFieldsetField legend="Personal Information">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-2">
+              <div className="md:col-span-2">
+                <FormSelectField
+                  form={form}
+                  name="title"
+                  label="Title"
+                  options={titleOptions}
+                  placeholder="Select title"
+                />
+              </div>
+
+              <div className="md:col-span-5">
+                <FormInputField
+                  form={form}
+                  name="forename"
+                  label="Forename *"
+                  required
+                />
+              </div>
+
+              <div className="md:col-span-5">
+                <FormInputField
+                  form={form}
+                  name="surname"
+                  label="Surname *"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormDateCalenderField
+                form={form}
+                name="dob"
+                label="Date of Birth *"
+              />
+
               <FormSelectField
                 form={form}
-                name="title"
-                label="Title"
-                options={titleOptions}
-                placeholder="Select title"
-              />
-
-              <FormInputField
-                form={form}
-                name="forename"
-                label="Forename *"
-                required
-              />
-
-              <FormInputField
-                form={form}
-                name="surname"
-                label="Surname *"
-                required
+                name="gender"
+                label="Gender *"
+                options={genderOptions}
+                placeholder="Select gender"
               />
             </div>
           </FormFieldsetField>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <FormDateCalenderField
+          <FormFieldsetField legend="Contact Information">
+            <FormInputField
               form={form}
-              name="dob"
-              label="Date of Birth *"
+              name="email"
+              label="Email"
+              type="email"
             />
 
-            <FormSelectField
-              form={form}
-              name="gender"
-              label="Gender *"
-              options={genderOptions}
-              placeholder="Select gender"
-            />
-          </div>
-
-          <FormInputField form={form} name="email" label="Email" type="email" />
-
-          <FormFieldsetField legend="Home Contact">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <FormPhoneField
                 form={form}
@@ -169,13 +180,13 @@ export function BasePupilForm({
                 placeholder="Enter work number"
               />
             </div>
-          </FormFieldsetField>
 
-          <FormCheckboxField
-            form={form}
-            name="allowTextMessaging"
-            label="Allow Text Messaging"
-          />
+            <FormCheckboxField
+              form={form}
+              name="allowTextMessaging"
+              label="Opt in Text Messaging"
+            />
+          </FormFieldsetField>
 
           <FormFieldsetField legend="Pickup Address">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
