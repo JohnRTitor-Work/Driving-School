@@ -122,9 +122,6 @@ export function ViewPupilDashboard({ pupilData }: { pupilData: PupilInfo }) {
             <strong>Default Product:</strong> {pupilData.defaultProduct}
           </div>
           <div>
-            <strong>Online Password:</strong> {pupilData.onlinePassword}
-          </div>
-          <div>
             <strong>Notes:</strong> {pupilData.notes}
           </div>
         </CardContent>
