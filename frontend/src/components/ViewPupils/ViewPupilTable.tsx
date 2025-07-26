@@ -1,20 +1,9 @@
 import type { PupilInfo } from "@/api/pupil/pupil.api.schema";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ArrowUpDownIcon, MoreHorizontalIcon } from "lucide-react";
-import { useDeletePupilById } from "@/api/pupil/pupil.mutation";
-import { Link } from "@tanstack/react-router";
+import { ArrowUpDownIcon } from "lucide-react";
 import { format } from "date-fns";
-import { useState } from "react";
-import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
+import { PupilActions } from "@/components/ViewPupils/ViewPupilActions";
 
 export const columns: ColumnDef<PupilInfo>[] = [
   {
@@ -102,69 +91,9 @@ export const columns: ColumnDef<PupilInfo>[] = [
     id: "actions",
     header: "Actions",
     cell: ({ row }) => {
-      const { mutateAsync, isPending } = useDeletePupilById();
       const pupil = row.original;
-      const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
-      const handleDelete = async () => {
-        await mutateAsync(pupil._id);
-      };
-
-      const pupilName = `${pupil.title ? `${pupil.title}. ` : ""}${pupil.forename} ${pupil.surname}`;
-
-      return (
-        <>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <MoreHorizontalIcon className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem asChild>
-                <Link
-                  to="/pupils/$id"
-                  params={{
-                    id: pupil._id,
-                  }}
-                >
-                  View
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link
-                  to="/pupils/$id/edit"
-                  params={{
-                    id: pupil._id,
-                  }}
-                >
-                  Edit
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() => setShowDeleteDialog(true)}
-                className="text-red-600 focus:text-red-600"
-              >
-                Delete Pupil
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <ConfirmationDialog
-            open={showDeleteDialog}
-            onOpenChange={setShowDeleteDialog}
-            title="Delete Pupil"
-            description={`Are you sure you want to delete ${pupilName}? This action cannot be undone.`}
-            confirmText="Delete"
-            cancelText="Cancel"
-            onConfirm={handleDelete}
-            isLoading={isPending}
-            variant="destructive"
-          />
-        </>
-      );
+      return <PupilActions pupil={pupil} />;
     },
   },
 ];
