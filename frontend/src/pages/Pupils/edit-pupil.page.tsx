@@ -1,13 +1,14 @@
 import { useGetPupilById } from "@/api/pupil/pupil.query";
 import { EditPupilForm } from "@/components/Forms/pupil-forms";
 import { PageTitleHeader } from "@/components/common/page-title-header";
-import { useParams } from "@tanstack/react-router";
+import { useNavigate, useParams } from "@tanstack/react-router";
 
 const EditPupilPage = () => {
   const { id } = useParams({
     from: "/pupils/$id/edit",
   });
   const { data: pupilData } = useGetPupilById(id);
+  const navigate = useNavigate();
 
   if (!pupilData) {
     return <div>Pupil not found.</div>;
@@ -19,7 +20,12 @@ const EditPupilPage = () => {
         title="Edit Pupil"
         description={`Edit details of ${id} here.`}
       />
-      <EditPupilForm initialData={pupilData} />
+      <EditPupilForm
+        initialData={pupilData}
+        onSuccessAction={() => {
+          navigate({ to: "/pupils/$id", params: { id } });
+        }}
+      />
     </div>
   );
 };

@@ -7,13 +7,19 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddPupil, useEditPupilById } from "@/api/pupil/pupil.mutation";
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 
 type BasePupilFormProps = {
   initialData?: Partial<PupilInfo>;
   type: "add" | "edit";
+  onSuccessAction?: () => void;
 };
 
-export function BasePupilForm({ initialData, type }: BasePupilFormProps) {
+export function BasePupilForm({
+  initialData,
+  type,
+  onSuccessAction,
+}: BasePupilFormProps) {
   const {
     handleSubmit,
     register,
@@ -57,6 +63,13 @@ export function BasePupilForm({ initialData, type }: BasePupilFormProps) {
       editMutation.mutateAsync({ id, payload: data });
     }
   };
+
+  const { isSuccess } = submitMutation;
+  useEffect(() => {
+    if (isSuccess && onSuccessAction) {
+      onSuccessAction();
+    }
+  }, [isSuccess]);
 
   return (
     <div>
@@ -390,14 +403,26 @@ export function BasePupilForm({ initialData, type }: BasePupilFormProps) {
   );
 }
 
-export function AddPupilForm() {
-  return <BasePupilForm type="add" />;
+export function AddPupilForm({
+  onSuccessAction,
+}: {
+  onSuccessAction?: () => void;
+}) {
+  return <BasePupilForm type="add" onSuccessAction={onSuccessAction} />;
 }
 
 export function EditPupilForm({
   initialData,
+  onSuccessAction,
 }: {
   initialData: Partial<PupilInfo>;
+  onSuccessAction?: () => void;
 }) {
-  return <BasePupilForm type="edit" initialData={initialData} />;
+  return (
+    <BasePupilForm
+      type="edit"
+      initialData={initialData}
+      onSuccessAction={onSuccessAction}
+    />
+  );
 }
