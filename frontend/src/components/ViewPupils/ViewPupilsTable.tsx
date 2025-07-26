@@ -3,7 +3,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDownIcon } from "lucide-react";
 import { format } from "date-fns";
-import { PupilActions } from "@/components/ViewPupils/ViewPupilActions";
+import { PupilActions } from "@/components/ViewPupils/ViewPupilsActions";
 
 export const columns: ColumnDef<PupilInfo>[] = [
   {

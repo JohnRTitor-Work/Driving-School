@@ -1,5 +1,5 @@
 import { useGetPupils } from "@/api/pupil/pupil.query";
-import { columns } from "@/components/ViewPupils/ViewPupilTable";
+import { columns } from "@/components/ViewPupils/ViewPupilsTable";
 import { PageTitleHeader } from "@/components/common/page-title-header";
 import { DataTable } from "@/components/ui/data-table";
 
