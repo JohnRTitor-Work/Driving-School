@@ -3,6 +3,7 @@ import { columns } from "@/components/ViewPupils/ViewPupilsTable";
 import { PageTitleHeader } from "@/components/common/page-title-header";
 import { DataTable } from "@/components/ui/data-table";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { NotFound } from "@/components/ui/not-found";
 
 const PupilsPage = () => {
   const { data: pupilsList, isLoading, error } = useGetPupils();
@@ -11,7 +12,14 @@ const PupilsPage = () => {
     return <LoadingSpinner message="Loading Pupil Data..." />;
   }
 
-  if (error) return <div>Error loading pupils.</div>;
+  if (!pupilsList) {
+    return (
+      <NotFound
+        title="Error loading Pupils list"
+        message="Please make sure database is connected or it has enough entries."
+      />
+    );
+  }
 
   return (
     <div className="container mx-auto py-10">

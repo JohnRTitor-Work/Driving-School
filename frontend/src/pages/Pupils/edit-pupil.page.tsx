@@ -2,6 +2,7 @@ import { useGetPupilById } from "@/api/pupil/pupil.query";
 import { EditPupilForm } from "@/components/Forms/pupil-forms";
 import { PageTitleHeader } from "@/components/common/page-title-header";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { NotFound } from "@/components/ui/not-found";
 import { useNavigate, useParams } from "@tanstack/react-router";
 
 const EditPupilPage = () => {
@@ -16,7 +17,12 @@ const EditPupilPage = () => {
   }
 
   if (!pupilData) {
-    return <div>Pupil not found.</div>;
+    return (
+      <NotFound
+        title="Pupil not found"
+        message="Please check whether the id is valid."
+      />
+    );
   }
 
   return (
