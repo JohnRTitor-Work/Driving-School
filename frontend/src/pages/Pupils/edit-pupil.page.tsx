@@ -1,14 +1,19 @@
 import { useGetPupilById } from "@/api/pupil/pupil.query";
 import { EditPupilForm } from "@/components/Forms/pupil-forms";
 import { PageTitleHeader } from "@/components/common/page-title-header";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { useNavigate, useParams } from "@tanstack/react-router";
 
 const EditPupilPage = () => {
   const { id } = useParams({
     from: "/pupils/$id/edit",
   });
-  const { data: pupilData } = useGetPupilById(id);
+  const { data: pupilData, isLoading } = useGetPupilById(id);
   const navigate = useNavigate();
+
+  if (isLoading) {
+    return <LoadingSpinner message="Loading Pupil Data..." />;
+  }
 
   if (!pupilData) {
     return <div>Pupil not found.</div>;

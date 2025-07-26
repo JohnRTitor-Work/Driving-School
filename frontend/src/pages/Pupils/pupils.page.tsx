@@ -2,11 +2,15 @@ import { useGetPupils } from "@/api/pupil/pupil.query";
 import { columns } from "@/components/ViewPupils/ViewPupilsTable";
 import { PageTitleHeader } from "@/components/common/page-title-header";
 import { DataTable } from "@/components/ui/data-table";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 const PupilsPage = () => {
   const { data: pupilsList, isLoading, error } = useGetPupils();
 
-  if (isLoading) return <div>Loading pupils...</div>;
+  if (isLoading) {
+    return <LoadingSpinner message="Loading Pupil Data..." />;
+  }
+
   if (error) return <div>Error loading pupils.</div>;
 
   return (
