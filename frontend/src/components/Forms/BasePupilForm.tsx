@@ -91,10 +91,10 @@ export function BasePupilForm({
 
   const onSubmit: SubmitHandler<AddPupilPayload> = async (data) => {
     if (type === "add") {
-      addMutation.mutateAsync(data);
+      await addMutation.mutateAsync(data);
     } else {
       const { _id: id = "" } = initialData ?? {};
-      editMutation.mutateAsync({ id, payload: data });
+      await editMutation.mutateAsync({ id, payload: data });
     }
   };
 
