@@ -1,5 +1,6 @@
 import type { PupilInfo } from "@/api/pupil/pupil.api.schema";
 import { Card, CardContent } from "@/components/ui/card";
+import { formatDate } from "date-fns";
 
 export function PupilViewInformationCard({
   pupilData,
@@ -18,7 +19,9 @@ export function PupilViewInformationCard({
                   <p className="text-sm font-medium text-muted-foreground">
                     Date of Birth
                   </p>
-                  <p className="text-base">{pupilData.dob}</p>
+                  <p className="text-base">
+                    {formatDate(pupilData.dob, "yyyy-MM-dd")}
+                  </p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-sm font-medium text-muted-foreground">
