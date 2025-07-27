@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { DataTablePagination } from "@/components/ui/data-table-pagination";
 import { DataTableViewOptions } from "@/components/ui/data-table-view-options";
+import { DataTableColumnFilter } from "@/components/ui/data-table-column-filter";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -63,6 +64,13 @@ export function ViewPupilsTableCore<TData, TValue>({
           }
           className="max-w-sm"
         />
+
+        <DataTableColumnFilter
+          table={table}
+          columnKey="licenseType"
+          title="License Type"
+        />
+
         <DataTableViewOptions table={table} />
       </div>
       <div className="overflow-hidden rounded-md border">
