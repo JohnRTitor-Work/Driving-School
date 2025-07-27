@@ -1,7 +1,7 @@
 import { useGetPupils } from "@/api/pupil/pupil.query";
-import { columns } from "@/components/ViewPupils/ViewPupilsTable";
+import { viewPupilsTableColumns } from "@/components/ViewPupils/ViewPupilsTableColumns";
+import { ViewPupilsTableCore } from "@/components/ViewPupils/ViewPupilsTableCore";
 import { PageTitleHeader } from "@/components/common/page-title-header";
-import { DataTable } from "@/components/ui/data-table";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { NotFound } from "@/components/ui/not-found";
 
@@ -12,7 +12,7 @@ const PupilsPage = () => {
     return <LoadingSpinner message="Loading Pupil Data..." />;
   }
 
-  if (!pupilsList) {
+  if (!pupilsList || error) {
     return (
       <NotFound
         title="Error loading Pupils list"
@@ -25,7 +25,10 @@ const PupilsPage = () => {
     <div className="container mx-auto py-10">
       <PageTitleHeader title="Pupils List" />
       {pupilsList && pupilsList.length > 0 ? (
-        <DataTable columns={columns} data={pupilsList} />
+        <ViewPupilsTableCore
+          columns={viewPupilsTableColumns}
+          data={pupilsList}
+        />
       ) : (
         <>No pupils found.</>
       )}

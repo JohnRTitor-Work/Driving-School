@@ -17,7 +17,7 @@ import { useDeletePupilById } from "@/api/pupil/pupil.mutation";
 import { Link } from "@tanstack/react-router";
 import { MoreHorizontalIcon } from "lucide-react";
 
-export const columns: ColumnDef<PupilInfo>[] = [
+export const viewPupilsTableColumns: ColumnDef<PupilInfo>[] = [
   {
     id: "name",
     header: ({ column }) => {
