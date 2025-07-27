@@ -56,6 +56,23 @@ export const pupilsTableColumns: ColumnDef<PupilInfo>[] = [
     },
     accessorFn: (row) =>
       `${row.title ? `${row.title}. ` : ""}${row.forename} ${row.surname}`,
+    cell: ({ row, getValue }) => {
+      const pupilId = row.original._id;
+      const pupilName = getValue() as string;
+
+      return (
+        <Button variant="link" asChild>
+          <Link
+            to="/pupils/$id"
+            params={{
+              id: pupilId,
+            }}
+          >
+            {pupilName}
+          </Link>
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "email",
