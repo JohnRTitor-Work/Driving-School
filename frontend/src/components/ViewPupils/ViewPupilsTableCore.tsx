@@ -2,6 +2,7 @@
 
 import {
   type ColumnDef,
+  type ColumnFiltersState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -33,7 +34,7 @@ export function ViewPupilsTableCore<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
-  const [globalFilter, setGlobalFilter] = useState("");
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const table = useReactTable({
     data,
@@ -43,11 +44,11 @@ export function ViewPupilsTableCore<TData, TValue>({
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    onGlobalFilterChange: setGlobalFilter,
+    onColumnFiltersChange: setColumnFilters,
     globalFilterFn: "includesString",
     state: {
       sorting,
-      globalFilter,
+      columnFilters,
     },
   });
 
@@ -55,9 +56,11 @@ export function ViewPupilsTableCore<TData, TValue>({
     <div>
       <div className="flex items-center py-4">
         <Input
-          placeholder="Search all fields..."
-          value={globalFilter ?? ""}
-          onChange={(event) => setGlobalFilter(event.target.value)}
+          placeholder="Search by name..."
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("name")?.setFilterValue(event.target.value)
+          }
           className="max-w-sm"
         />
         <DataTableViewOptions table={table} />
