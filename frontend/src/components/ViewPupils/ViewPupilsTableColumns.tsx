@@ -101,6 +101,11 @@ export const viewPupilsTableColumns: ColumnDef<PupilInfo>[] = [
   {
     accessorKey: "licenseType",
     header: "License Type",
+    filterFn: (row, id, value) => {
+      if (!value || value.length === 0) return true;
+      const cellValue = row.getValue(id)?.toString() || "";
+      return value.includes(cellValue);
+    },
   },
   {
     accessorKey: "passedTheory",
