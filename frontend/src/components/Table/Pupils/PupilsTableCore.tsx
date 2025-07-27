@@ -25,15 +25,15 @@ import { DataTablePagination } from "@/components/ui/data-table-pagination";
 import { DataTableViewOptions } from "@/components/ui/data-table-view-options";
 import { DataTableColumnFilter } from "@/components/ui/data-table-column-filter";
 
-interface DataTableProps<TData, TValue> {
+interface PupilsTableCoreProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function ViewPupilsTableCore<TData, TValue>({
+export function PupilsTableCore<TData, TValue>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+}: PupilsTableCoreProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 

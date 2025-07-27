@@ -11,7 +11,7 @@ import { EditIcon, Trash2Icon } from "lucide-react";
 import { getInitials } from "@/lib/pupil-utils";
 import { differenceInYears } from "date-fns";
 
-export function ViewPupilDashboard({ pupilData }: { pupilData: PupilInfo }) {
+export function PupilViewDashboard({ pupilData }: { pupilData: PupilInfo }) {
   const pupilName = `${pupilData.title ? `${pupilData.title}. ` : ""}${pupilData.forename} ${pupilData.surname}`;
   const pupilAge = differenceInYears(new Date(), pupilData.dob);
   const hasPassedTheory = pupilData.passedTheory;

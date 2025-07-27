@@ -1,7 +1,7 @@
 import { useGetPupilById } from "@/api/pupil/pupil.query";
+import { PupilViewDashboard } from "@/components/PupilView/PupilViewDashboard";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { NotFound } from "@/components/ui/not-found";
-import { ViewPupilDashboard } from "@/components/ViewPupils/ViewPupilDashboard";
 import { useParams } from "@tanstack/react-router";
 
 const PupilPage = () => {
@@ -23,7 +23,7 @@ const PupilPage = () => {
     );
   }
 
-  return <ViewPupilDashboard pupilData={pupilData} />;
+  return <PupilViewDashboard pupilData={pupilData} />;
 };
 
 export default PupilPage;

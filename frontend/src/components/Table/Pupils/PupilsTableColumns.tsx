@@ -18,7 +18,7 @@ import { Link } from "@tanstack/react-router";
 import { MoreHorizontalIcon } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 
-export const viewPupilsTableColumns: ColumnDef<PupilInfo>[] = [
+export const pupilsTableColumns: ColumnDef<PupilInfo>[] = [
   {
     id: "select",
     header: ({ table }) => (
