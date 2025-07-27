@@ -1,5 +1,4 @@
 "use client";
-
 import {
   type ColumnDef,
   type ColumnFiltersState,
@@ -10,6 +9,7 @@ import {
   getSortedRowModel,
   type SortingState,
   useReactTable,
+  type RowSelectionState,
 } from "@tanstack/react-table";
 import {
   Table,
@@ -24,6 +24,7 @@ import { useState } from "react";
 import { DataTablePagination } from "@/components/ui/data-table-pagination";
 import { DataTableViewOptions } from "@/components/ui/data-table-view-options";
 import { DataTableColumnFilter } from "@/components/ui/data-table-column-filter";
+import { PupilsTableBulkDeleteAction } from "./PupilsTableBulkDelete";
 
 interface PupilsTableCoreProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -36,6 +37,7 @@ export function PupilsTableCore<TData, TValue>({
 }: PupilsTableCoreProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const table = useReactTable({
     data,
@@ -46,35 +48,48 @@ export function PupilsTableCore<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onColumnFiltersChange: setColumnFilters,
+    onRowSelectionChange: setRowSelection,
+    enableRowSelection: true,
     globalFilterFn: "includesString",
     state: {
       sorting,
       columnFilters,
+      rowSelection,
     },
   });
 
+  const selectedRows = table.getFilteredSelectedRowModel().rows;
+
   return (
     <div>
-      <div className="flex items-center py-4">
-        <Input
-          placeholder="Search by name..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-
-        <span className="ml-4">
+      <div className="flex items-center justify-between py-4">
+        <div className="flex items-center space-x-4">
+          <Input
+            placeholder="Search by name..."
+            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("name")?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
           <DataTableColumnFilter
             table={table}
             columnKey="licenseType"
             title="License Type"
           />
-        </span>
+        </div>
 
-        <DataTableViewOptions table={table} />
+        <div className="flex items-center space-x-2">
+          <PupilsTableBulkDeleteAction
+            selectedRows={selectedRows}
+            onDeleteComplete={() => {
+              setRowSelection({});
+            }}
+          />
+          <DataTableViewOptions table={table} />
+        </div>
       </div>
+
       <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
