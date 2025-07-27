@@ -1,128 +1,68 @@
 import type { PupilInfo } from "@/api/pupil/pupil.api.schema";
 import { useDeletePupilById } from "@/api/pupil/pupil.mutation";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ConfirmationDialog } from "../ui/confirmation-dialog";
 import { EditIcon, Trash2Icon } from "lucide-react";
+import { getInitials } from "@/lib/pupil-utils";
+import { differenceInYears } from "date-fns";
 
 export function ViewPupilDashboard({ pupilData }: { pupilData: PupilInfo }) {
   const pupilName = `${pupilData.title ? `${pupilData.title}. ` : ""}${pupilData.forename} ${pupilData.surname}`;
+  const pupilAge = differenceInYears(new Date(), pupilData.dob);
+  const hasPassedTheory = pupilData.passedTheory;
+  const hasFullAccess = pupilData.fullAccess;
+  const hasCaution = pupilData.pupilCaution;
 
   return (
     <>
       <Card className="rounded p-4 border border-gray-300 my-4">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle>Pupil Details</CardTitle>
-          <ViewPupilActions pupilId={pupilData?._id} pupilName={pupilName} />
-        </CardHeader>
-        <CardContent>
-          <div>
-            <strong>Pupil Id:</strong> {pupilData._id}
-          </div>
-          <div>
-            <strong>Name:</strong> {pupilData.title}. {pupilData.forename}{" "}
-            {pupilData.surname}
-          </div>
-          <div>
-            <strong>Email:</strong> {pupilData.email}
-          </div>
-          <div>
-            <strong>Date of Birth:</strong> {pupilData.dob}
-          </div>
-          <div>
-            <strong>Gender:</strong> {pupilData.gender}
-          </div>
-          <div>
-            <strong>Home:</strong>
-            <div className="ml-4">
-              <div>
-                <strong>Mobile:</strong> {pupilData.home?.mobile}
+        <CardContent className="p-6">
+          <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
+            <Avatar className="h-24 w-24 text-2xl">
+              <AvatarFallback className="bg-primary text-primary-foreground">
+                {getInitials(pupilData.forename, pupilData.surname)}
+              </AvatarFallback>
+            </Avatar>
+
+            <div className="flex-1 text-center md:text-left space-y-2">
+              <div className="space-y-1">
+                <h2 className="text-2xl font-bold">
+                  {pupilData.title ? `${pupilData.title}. ` : ""}
+                  {pupilData.forename} {pupilData.surname}
+                </h2>
+                <p className="text-muted-foreground">{pupilData.email}</p>
               </div>
-              <div>
-                <strong>Work:</strong> {pupilData.home?.work}
-              </div>
-            </div>
-          </div>
-          <div>
-            <strong>Allow Text Messaging:</strong>{" "}
-            {pupilData.allowTextMessaging ? "Yes" : "No"}
-          </div>
-          <div>
-            <strong>Pickup Address:</strong>
-            <div className="ml-4">
-              <div>
-                <strong>Postcode:</strong> {pupilData.pickupAddress?.postcode}
-              </div>
-              <div>
-                <strong>House No:</strong> {pupilData.pickupAddress?.houseNo}
-              </div>
-              <div>
-                <strong>Address:</strong> {pupilData.pickupAddress?.address}
+              <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+                <Badge>{pupilData.gender}</Badge>
+                <Badge variant="outline">Age: {pupilAge}</Badge>
+
+                {hasPassedTheory && (
+                  <Badge variant="default" className="bg-blue-600">
+                    Passed Theory
+                  </Badge>
+                )}
+                {hasFullAccess && (
+                  <Badge variant="default" className="bg-purple-600">
+                    Full Access
+                  </Badge>
+                )}
+                {hasCaution && <Badge variant="destructive">Caution</Badge>}
               </div>
             </div>
-          </div>
-          <div>
-            <strong>Home Address:</strong>
-            <div className="ml-4">
-              <div>
-                <strong>Postcode:</strong> {pupilData.homeAddress?.postcode}
-              </div>
-              <div>
-                <strong>House No:</strong> {pupilData.homeAddress?.houseNo}
-              </div>
-              <div>
-                <strong>Address:</strong> {pupilData.homeAddress?.address}
+
+            <div className="text-center md:text-right">
+              <div className="mt-2">
+                <ViewPupilActions
+                  pupilId={pupilData?._id}
+                  pupilName={pupilName}
+                />
               </div>
             </div>
-          </div>
-          <div>
-            <strong>Pupil Type:</strong> {pupilData.pupilType}
-          </div>
-          <div>
-            <strong>Pupil Owner:</strong> {pupilData.pupilOwner}
-          </div>
-          <div>
-            <strong>Allocated To:</strong> {pupilData.allocatedTo}
-          </div>
-          <div>
-            <strong>License Type:</strong> {pupilData.licenseType}
-          </div>
-          <div>
-            <strong>License No:</strong> {pupilData.licenseNo}
-          </div>
-          <div>
-            <strong>Passed Theory:</strong>{" "}
-            {pupilData.passedTheory ? "Yes" : "No"}
-          </div>
-          <div>
-            <strong>FOTT:</strong> {pupilData.fott ? "Yes" : "No"}
-          </div>
-          <div>
-            <strong>Full Access:</strong> {pupilData.fullAccess ? "Yes" : "No"}
-          </div>
-          <div>
-            <strong>Pupil Caution:</strong>{" "}
-            {pupilData.pupilCaution ? "Yes" : "No"}
-          </div>
-          <div>
-            <strong>Cert No:</strong> {pupilData.certNo}
-          </div>
-          <div>
-            <strong>Date Passed:</strong> {pupilData.datePassed ?? "N/A"}
-          </div>
-          <div>
-            <strong>Usual Availability:</strong> {pupilData.usualAvailability}
-          </div>
-          <div>
-            <strong>Discount:</strong> {pupilData.discount}
-          </div>
-          <div>
-            <strong>Default Product:</strong> {pupilData.defaultProduct}
-          </div>
-          <div>
-            <strong>Notes:</strong> {pupilData.notes}
           </div>
         </CardContent>
       </Card>
@@ -153,7 +93,7 @@ function ViewPupilActions({
 
   return (
     <>
-      <div className="flex gap-2">
+      <div className="flex gap-2 justify-center md:justify-end">
         <Button asChild variant="outline">
           <Link to="/pupils/$id/edit" params={{ id: pupilId }}>
             <EditIcon className="h-4 w-4 mr-2" />
