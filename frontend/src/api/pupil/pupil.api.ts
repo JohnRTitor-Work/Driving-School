@@ -41,6 +41,32 @@ export async function deletePupilById(id: string) {
     return error.response?.data;
   }
 }
+export async function deletePupilsByIds(ids: string[]) {
+  const deleted = [];
+  const failed = [];
+
+  for (const id of ids) {
+    try {
+      const result = await deletePupilById(id);
+      deleted.push({ id, data: result });
+    } catch (err) {
+      const error = err as AxiosError<ErrorResponse>;
+      failed.push({
+        id,
+        error: error?.response?.data || error.message,
+      });
+    }
+  }
+
+  if (failed.length > 0) {
+    console.error("Delete Pupils By Ids Errors:", failed);
+  }
+
+  return {
+    deleted,
+    failed,
+  };
+}
 
 export async function getPupils() {
   try {
