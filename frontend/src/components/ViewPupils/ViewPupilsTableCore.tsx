@@ -65,11 +65,13 @@ export function ViewPupilsTableCore<TData, TValue>({
           className="max-w-sm"
         />
 
-        <DataTableColumnFilter
-          table={table}
-          columnKey="licenseType"
-          title="License Type"
-        />
+        <span className="ml-4">
+          <DataTableColumnFilter
+            table={table}
+            columnKey="licenseType"
+            title="License Type"
+          />
+        </span>
 
         <DataTableViewOptions table={table} />
       </div>
