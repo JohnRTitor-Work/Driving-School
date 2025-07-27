@@ -22,7 +22,7 @@ export function useAddPupil() {
   });
 }
 
-export const useEditPupilById = () => {
+export function useEditPupilById() {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -45,9 +45,9 @@ export const useEditPupilById = () => {
     },
     onError: () => toast.error("Pupil edit failed."),
   });
-};
+}
 
-export const useDeletePupilById = () => {
+export function useDeletePupilById() {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -62,4 +62,4 @@ export const useDeletePupilById = () => {
     },
     onError: () => toast.error("Pupil deletion failed."),
   });
-};
+}

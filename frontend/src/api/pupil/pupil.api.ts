@@ -28,7 +28,7 @@ export async function editPupilById(id: string, payload: AddPupilPayload) {
   }
 }
 
-export const deletePupilById = async (id: string) => {
+export async function deletePupilById(id: string) {
   try {
     const response = await api.delete(`/pupils/${id}`);
     return response.data;
@@ -40,7 +40,7 @@ export const deletePupilById = async (id: string) => {
     );
     return error.response?.data;
   }
-};
+}
 
 export async function getPupils() {
   try {
