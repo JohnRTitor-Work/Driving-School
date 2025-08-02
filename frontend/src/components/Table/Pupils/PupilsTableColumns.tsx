@@ -1,7 +1,7 @@
 import type { PupilInfo } from "@/api/pupil/pupil.api.schema";
-import type { ColumnDef } from "@tanstack/react-table";
+import type { Column, ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { ArrowUpDownIcon } from "lucide-react";
+import { ArrowDownIcon, ArrowUpDownIcon, ArrowUpIcon } from "lucide-react";
 import { format } from "date-fns";
 import { useState } from "react";
 import {
@@ -44,15 +44,7 @@ export const pupilsTableColumns: ColumnDef<PupilInfo>[] = [
   {
     id: "name",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Name
-          <ArrowUpDownIcon className="ml-2 h-4 w-4" />
-        </Button>
-      );
+      return <ColumnSortingHeaderButton title="Name" column={column} />;
     },
     accessorFn: (row) =>
       `${row.title ? `${row.title}. ` : ""}${row.forename} ${row.surname}`,
@@ -86,29 +78,13 @@ export const pupilsTableColumns: ColumnDef<PupilInfo>[] = [
   {
     accessorKey: "gender",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Gender
-          <ArrowUpDownIcon className="ml-2 h-4 w-4" />
-        </Button>
-      );
+      return <ColumnSortingHeaderButton title="Gender" column={column} />;
     },
   },
   {
     accessorKey: "pupilType",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Pupil Type
-          <ArrowUpDownIcon className="ml-2 h-4 w-4" />
-        </Button>
-      );
+      return <ColumnSortingHeaderButton title="Pupil Type" column={column} />;
     },
   },
   {
@@ -128,13 +104,7 @@ export const pupilsTableColumns: ColumnDef<PupilInfo>[] = [
     accessorKey: "passedTheory",
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Passed Theory
-          <ArrowUpDownIcon className="ml-2 h-4 w-4" />
-        </Button>
+        <ColumnSortingHeaderButton title="Passed Theory" column={column} />
       );
     },
     cell: ({ getValue }) => (getValue() ? "Yes" : "No"),
@@ -208,5 +178,29 @@ export function PupilActions({ pupil }: { pupil: PupilInfo }) {
         variant="destructive"
       />
     </>
+  );
+}
+
+function ColumnSortingHeaderButton({
+  column,
+  title,
+}: {
+  column: Column<PupilInfo>;
+  title: string;
+}) {
+  return (
+    <Button
+      variant="ghost"
+      onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+    >
+      {title}
+      {column.getIsSorted() === "asc" ? (
+        <ArrowUpIcon className="ml-2 h-4 w-4" />
+      ) : column.getIsSorted() === "desc" ? (
+        <ArrowDownIcon className="ml-2 h-4 w-4" />
+      ) : (
+        <ArrowUpDownIcon className="ml-2 h-4 w-4" />
+      )}
+    </Button>
   );
 }
